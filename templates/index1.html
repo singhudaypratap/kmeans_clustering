@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Flower Cluster Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            padding: 40px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            text-align: center;
+        }
+        h1 {
+            color: #4A90E2;
+            margin-bottom: 24px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 32px;
+        }
+        input, button {
+            padding: 12px 20px;
+            font-size: 16px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            background-color: #4A90E2;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #357ABD;
+        }
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 32px;
+        }
+        .images img {
+            width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .card {
+            margin-top: 40px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            text-align: left;
+            max-width: 600px;
+        }
+        .card h2 {
+            color: #4A90E2;
+            margin-bottom: 16px;
+        }
+        .card p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        .link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #4A90E2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .link:hover {
+            background: #357ABD;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Iris Flower Cluster Predictor</h1>
+        <p>Enter the sepal and petal dimensions to predict the Iris flower species.</p>
+        <form action="/predict" method="post" id="predict-form">
+            <input type="text" name="data" placeholder="Enter values (e.g., 5.1, 3.5, 1.4, 0.2)" required>
+            <button type="submit">Predict</button>
+        </form>
+        <div class="images">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Iris_versicolor_3.jpg" alt="Iris Setosa">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Iris_versicolor_2.jpg" alt="Iris Versicolor">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Iris_virginica.jpg" alt="Iris Virginica">
+        </div>
+        <div class="card">
+            <h2>About the Iris Flower Dataset</h2>
+            <p>The Iris dataset is a classic dataset in machine learning, containing information about three species of iris flowers:</p>
+            <ul>
+                <li><strong>Setosa:</strong> Known for its small size and distinct shape.</li>
+                <li><strong>Versicolor:</strong> Intermediate in size and form.</li>
+                <li><strong>Virginica:</strong> Larger and more robust compared to others.</li>
+            </ul>
+            <a href="#predict-form" class="link">Try Prediction Now</a>
+        </div>
+    </div>
+</body>
+</html>

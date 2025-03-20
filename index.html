@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMeans Prediction - Iris Dataset</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #ff3b2f;
+        }
+        .iris-info {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .iris-info img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        #result {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>KMeans Prediction - Iris Dataset</h1>
+        <p>Enter the features of an Iris flower, and we will predict its species using KMeans clustering.</p>
+
+        <form id="predictionForm">
+            <input type="number" id="sepalLength" name="sepalLength" step="any" placeholder="Sepal Length (cm)" required>
+            <input type="number" id="sepalWidth" name="sepalWidth" step="any" placeholder="Sepal Width (cm)" required>
+            <input type="number" id="petalLength" name="petalLength" step="any" placeholder="Petal Length (cm)" required>
+            <input type="number" id="petalWidth" name="petalWidth" step="any" placeholder="Petal Width (cm)" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        <div id="result"></div>
+
+        <div class="iris-info">
+            <h3>About the Iris Dataset</h3>
+            <p>The Iris dataset is one of the most famous datasets in machine learning. It contains 150 samples from three species:</p>
+            <ul>
+                <li><strong>Setosa</strong></li>
+                <li><strong>Versicolor</strong></li>
+                <li><strong>Virginica</strong></li>
+            </ul>
+            <img src="https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.png" alt="Iris Dataset Distribution" style="width:100%; border-radius:10px;">
+
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('predictionForm');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const data = {
+                data: [
+                    parseFloat(document.getElementById('sepalLength').value),
+                    parseFloat(document.getElementById('sepalWidth').value),
+                    parseFloat(document.getElementById('petalLength').value),
+                    parseFloat(document.getElementById('petalWidth').value)
+                ]
+            };
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = 'Predicted Cluster: ' + data.cluster;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

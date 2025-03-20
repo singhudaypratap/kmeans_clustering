@@ -132,15 +132,23 @@
 
             fetch('/predict', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(data)
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok. Status: ' + response.status);
+                }
+                return response.json();
+            })
             .then(data => {
                 document.getElementById('result').innerText = 'Predicted Cluster: ' + data.cluster;
             })
             .catch(error => {
                 console.error('Error:', error);
+                document.getElementById('result').innerText = 'Prediction error. Check console for details.';
             });
         });
     </script>

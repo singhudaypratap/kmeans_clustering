@@ -96,13 +96,14 @@
     <div class="container">
         <h1>Iris Flower Cluster Predictor</h1>
         <p>Enter the sepal and petal dimensions to predict the Iris flower species.</p>
-        <form action="/predict" method="post" id="predict-form">
-            <input type="number" name="sepalLength" placeholder="Sepal Length (cm)" step="any" required>
-            <input type="number" name="sepalWidth" placeholder="Sepal Width (cm)" step="any" required>
-            <input type="number" name="petalLength" placeholder="Petal Length (cm)" step="any" required>
-            <input type="number" name="petalWidth" placeholder="Petal Width (cm)" step="any" required>
+        <form id="predict-form">
+            <input type="number" id="sepalLength" name="sepalLength" placeholder="Sepal Length (cm)" step="any" required>
+            <input type="number" id="sepalWidth" name="sepalWidth" placeholder="Sepal Width (cm)" step="any" required>
+            <input type="number" id="petalLength" name="petalLength" placeholder="Petal Length (cm)" step="any" required>
+            <input type="number" id="petalWidth" name="petalWidth" placeholder="Petal Width (cm)" step="any" required>
             <button type="submit">Predict</button>
         </form>
+        <div id="result"></div>
         <div class="images">
             <img src="https://raw.githubusercontent.com/singhudaypratap/kmeans_clustering/refs/heads/main/templates/iris.svg" alt="Iris Flower">
             <img src="https://github.com/singhudaypratap/kmeans_clustering/blob/main/templates/iristypes.png?raw=true" alt="Iris Flower Types">
@@ -118,5 +119,30 @@
             <a href="#predict-form" class="link">Try Prediction Now</a>
         </div>
     </div>
+
+    <script>
+        document.getElementById('predict-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const data = {
+                sepalLength: parseFloat(document.getElementById('sepalLength').value),
+                sepalWidth: parseFloat(document.getElementById('sepalWidth').value),
+                petalLength: parseFloat(document.getElementById('petalLength').value),
+                petalWidth: parseFloat(document.getElementById('petalWidth').value)
+            };
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = 'Predicted Cluster: ' + data.cluster;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
 </body>
 </html>
